@@ -19,7 +19,6 @@ defmodule ObservabilityWeb.Router do
 
     get "/", PageController, :home
     live "/metricpillar", MetricsLive, :index
-    get "/metrics", MetricsController, :index
   end
 
   # Other scopes may use custom stacks.
