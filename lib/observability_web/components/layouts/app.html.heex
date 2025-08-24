@@ -1,0 +1,62 @@
+<header class="px-4 sm:px-6 lg:px-8 bg-indigo-400">
+  <div class="flex items-center justify-between py-4">
+    <div class="flex items-center text-left">
+      <.icon name="hero-academic-cap" class="w-8 h-8 mr-2 text-white" />
+      <h1 class="text-2xl font-medium text-white">The Learning Teacher</h1>
+    </div>
+    <div class="relative">
+      <button
+        id="sidebar-toggle"
+        class="text-white hover:text-indigo-100 focus:outline-none"
+        onclick="document.getElementById('sidebar').classList.toggle('translate-x-full')"
+      >
+        <.icon name="hero-bars-3" class="w-8 h-8" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<div
+  id="sidebar"
+  class="fixed top-0 right-0 h-full w-64 bg-indigo-200 text-indigo-800 transform translate-x-full transition-transform duration-300 ease-in-out shadow-lg z-50 overflow-hidden"
+>
+  <div class="p-5 h-full overflow-y-auto custom-scrollbar">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-xl font-semibold">Navigation</h2>
+      <button
+        id="sidebar-close"
+        class="text-indigo-800 hover:text-indigo-600"
+        onclick="document.getElementById('sidebar').classList.add('translate-x-full')"
+      >
+        <.icon name="hero-x-mark" class="w-6 h-6" />
+      </button>
+    </div>
+    <nav>
+      <ul class="space-y-4">
+        <li>
+          <a
+            href="/metricpillar"
+            class="block py-2 px-4 hover:bg-indigo-300 rounded transition-colors duration-200"
+          >
+            Metrics Pillar
+          </a>
+        </li>
+        <li>
+          <a
+            href="http://localhost:4000/dev/dashboard/metrics?nav=observability"
+            class="block py-2 px-4 hover:bg-indigo-300 rounded transition-colors duration-200"
+          >
+            Live Dashboard Metrics
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<main class="px-4 py-20 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-2xl">
+    <.flash_group flash={@flash} />
+    {@inner_content}
+  </div>
+</main>

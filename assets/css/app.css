@@ -1,0 +1,51 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* This file is for your main application CSS */
+
+/* Custom scrollbar styles for both sidebar and main content */
+/* Apply to html and body for main page scrollbar */
+html, body {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(79, 70, 229, 0.1) transparent;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(79, 70, 229, 0.1);
+  border-radius: 0;
+  border: 2px solid transparent;
+}
+
+/* Only show scrollbar when scrolling */
+html:not(:hover)::-webkit-scrollbar-thumb,
+body:not(:hover)::-webkit-scrollbar-thumb,
+.custom-scrollbar:not(:hover)::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+/* Firefox scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(79, 70, 229, 0.1) transparent;
+}
+
+html:not(:hover),
+body:not(:hover),
+.custom-scrollbar:not(:hover) {
+  scrollbar-color: transparent transparent;
+}
