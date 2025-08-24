@@ -1,5 +1,6 @@
 defmodule ObservabilityWeb.MetricsLive do
   use ObservabilityWeb, :live_view
+  alias Observability.Metrics
 
   @impl true
   def mount(_params, _session, socket) do
@@ -14,6 +15,8 @@ defmodule ObservabilityWeb.MetricsLive do
 
   @impl true
   def handle_event("trigger_metric", _params, socket) do
+    Metrics.count("metrics.trigger")
+
     {:noreply,
      socket
      |> put_flash(:info, "Metric triggered successfully!")}
@@ -79,6 +82,7 @@ defmodule ObservabilityWeb.MetricsLive do
   def handle_info(:emit_success_metric, socket) do
     if socket.assigns.metric_stream do
       # Emit the metric with success status
+      Metrics.count("metrics.stream", %{status: :success})
 
       # Schedule the next emission
       timer_ref = Process.send_after(self(), :emit_success_metric, 1000)
@@ -92,6 +96,7 @@ defmodule ObservabilityWeb.MetricsLive do
   def handle_info(:emit_error_metric, socket) do
     if socket.assigns.error_metric_stream do
       # Emit the metric with error status
+      Metrics.count("metrics.stream", %{status: :error})
 
       # Schedule the next emission
       error_timer_ref = Process.send_after(self(), :emit_error_metric, 1000)
