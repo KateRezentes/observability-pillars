@@ -14,6 +14,8 @@ defmodule ObservabilityWeb.MetricsLive do
 
   @impl true
   def handle_event("trigger_metric", _params, socket) do
+    :telemetry.execute([:metrics, :trigger], %{total: 1}, %{})
+
     {:noreply,
      socket
      |> put_flash(:info, "Metric triggered successfully!")}
@@ -79,6 +81,9 @@ defmodule ObservabilityWeb.MetricsLive do
   def handle_info(:emit_success_metric, socket) do
     if socket.assigns.metric_stream do
       # Emit the metric with success status
+      :telemetry.execute([:metrics, :stream], %{total: 1}, %{
+        status: :success
+      })
 
       # Schedule the next emission
       timer_ref = Process.send_after(self(), :emit_success_metric, 1000)
@@ -92,6 +97,9 @@ defmodule ObservabilityWeb.MetricsLive do
   def handle_info(:emit_error_metric, socket) do
     if socket.assigns.error_metric_stream do
       # Emit the metric with error status
+      :telemetry.execute([:metrics, :stream], %{total: 1}, %{
+        status: :error
+      })
 
       # Schedule the next emission
       error_timer_ref = Process.send_after(self(), :emit_error_metric, 1000)
